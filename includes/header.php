@@ -6,6 +6,7 @@
         
     </head>
 <body>
+    <?php include "connexion.php" ?>
     <div class="container">
         <div class="navbar navbar-default" role="navigation">
     <!-- Partie de la barre toujours affichée -->
