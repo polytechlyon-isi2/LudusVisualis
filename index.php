@@ -17,7 +17,7 @@ while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
     <form id="RenvoieJeu" action="jeu.php" method="post">
 <input type="hidden" name="Id_Jeu"  value="<?php echo $row[0]?>" />
 </form>
-<a href='film.php?Id_Jeu=<?php echo $row[0]; ?>' onclick='document.getElementById("test").submit()'><?php echo $row[1]?></a></h1>
+<a href='jeu.php?Id_Jeu=<?php echo $row[0]; ?>' onclick='document.getElementById("test").submit()'><?php echo $row[1]?></a></h1>
         <div class="row">
             <ul>
         
