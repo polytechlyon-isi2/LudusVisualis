@@ -1,7 +1,7 @@
 <html>
 <head>
    
-    <title>Mes movies</title>
+    <title>Ludus Visualis</title>
 </head>
 <body>
     <?php
@@ -14,6 +14,7 @@ while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
 ?>
     
     <div class="container">
+<!-- partie affichage de l'index 
 <h1>
     <form id="RenvoieFilm" action="film.php" method="post">
 <input type="hidden" name="Id_Film"  value="<?php echo $row[0]?>" />
@@ -30,6 +31,7 @@ while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
     
 
       </div>
+-->
     <?php } 
     include "includes/footer.php";
     ?>

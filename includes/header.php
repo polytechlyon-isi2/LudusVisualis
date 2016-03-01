@@ -17,23 +17,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">Mon site Web</a>
+        <a class="navbar-brand" href="index.php">LudusVisualis</a>
     </div>
     <!-- Partie de la barre masquée si la surface d'affichage est insuffisante -->
     <div class="collapse navbar-collapse" id="navbar-collapse-target">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="ajout.php">Ajouter un film</a></li>
+            <li class="active"><a href="#">Ajouter un jeu</a></li>
            
         </ul>
         <ul class="nav navbar-nav navbar-right">
-             <li><a href="administration.php">Administration</a></li>
+             <li><a href="#">Administration</a></li>
 	<li>
         <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Connexion
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><a href="#">Profil</a></li>
-                  <li><a href="#">Connexion/Déconnexion</a></li>
+                  <li><a href="authentification.php">Connexion/Déconnexion</a></li>
                 </ul>
         </div>
 	</li>
