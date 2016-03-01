@@ -16,13 +16,13 @@
                     
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <input type="text" name="_username" value="" class="form-control" placeholder="Entrez votre adresse de courriel" required autofocus>
+                            <input type="text" name="user_email" <?php if (isset($_POST['user_email'])){?>value=<?php echo($_POST['user_email']);}?>  class="form-control" placeholder="Entrez votre adresse de courriel" required autofocus>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <input type="password" name="_password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                            <input type="password" name="user_password" class="form-control" placeholder="Entrez votre mot de passe" required>
                         </div>
                     </div>
                     
