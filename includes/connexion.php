@@ -1,4 +1,4 @@
-<html>
+
 
     <?php
 
@@ -12,4 +12,3 @@ catch(PDOException $e) {
 }
 ?>
     
-</html>

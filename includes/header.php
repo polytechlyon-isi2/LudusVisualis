@@ -4,7 +4,7 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
         
-    </head>
+</head>
 <body>
     <?php include "connexion.php" ?>
     <div class="container">
@@ -42,4 +42,4 @@
     </div>
 </div>
     </div>
-    </body>
+ 
