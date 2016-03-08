@@ -1,4 +1,5 @@
 drop table if exists VideoGames;
+drop table if exists Users;
 
 create table VideoGames (
     game_id integer not null primary key auto_increment,
@@ -14,8 +15,6 @@ create table VideoGames (
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 
-drop table if exists Users;
-
 create table Users (
     user_id integer not null primary key auto_increment,
     user_email varchar(100) not null,
@@ -25,4 +24,6 @@ create table Users (
     user_adresse varchar(200) not null,
     user_zip integer not null,
     user_city varchar(100) not null
+    user_salt varchar(23) not null,
+    user_role varchar(50) not null 
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
