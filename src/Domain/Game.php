@@ -84,7 +84,7 @@ class Game
         $this->name = $name;
     }
 
-    public function getDescritionLong() {
+    public function getDescriptionLong() {
         return $this->DescriptionLong;
     }
 

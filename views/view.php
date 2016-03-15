@@ -7,12 +7,10 @@
     <title>LudusVisualis - Home</title>  
     
     <?php
-    $games = $pdo->query('select * from videogames order by game_id desc');
-  
     foreach ($games as $game): ?>
     <game>
         <h2><?php echo $game->getName() ?></h2>
-        <p><?php echo $game->getDescriptionShort() ?></p>
+        <p><?php echo $game->getDescriptionLong() ?></p>
     </game>
     <?php endforeach; 
 include "../includes/footer.php"; ?>
