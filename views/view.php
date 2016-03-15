@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
      <?php
-   include "includes/header.php";?>
+   include "../includes/header.php";?>
     <link href="LudusVisualis.css" rel="stylesheet" />
     <title>LudusVisualis - Home</title>  
     
@@ -14,7 +14,7 @@
         <p><?php echo $game['game_description_short'] ?></p>
     </game>
     <?php endforeach; 
-include "includes/footer.php"; ?>
+include "../includes/footer.php"; ?>
     </body>
 
 </html>
