@@ -8,10 +8,11 @@
     
     <?php
     $games = $pdo->query('select * from videogames order by game_id desc');
+  
     foreach ($games as $game): ?>
     <game>
-        <h2><?php echo $game['game_name'] ?></h2>
-        <p><?php echo $game['game_description_short'] ?></p>
+        <h2><?php echo $game->getName() ?></h2>
+        <p><?php echo $game->getDescriptionShort() ?></p>
     </game>
     <?php endforeach; 
 include "../includes/footer.php"; ?>
