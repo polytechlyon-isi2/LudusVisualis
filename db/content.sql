@@ -3,8 +3,5 @@ insert into VideoGames values
 
 
 insert into Users values
-<<<<<<< HEAD
-(1,'bob@hotmail.fr','bobixdu01','Dupont','Bob','3 rue pierrot',14785,'Besoul');
-=======
 (1,'bob@hotmail.fr','L2nNR5hIcinaJkKR+j4baYaZjcHS0c3WX2gjYF6Tmgl1Bs+C9Qbr+69X8eQwXDvw0vp73PrcSeT0bGEW5+T2hA==','Dupont','Bob','3 rue pierrot',14785,'Besoul','YcM=A$nsYzkyeDVjEUa7W9K','ROLE_USER');
->>>>>>> 1b8febbb2ead6c44997ed3d6397c0df703fb6c05
+
