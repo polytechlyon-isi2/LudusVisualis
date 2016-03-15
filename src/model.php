@@ -1,8 +1,8 @@
 <?php
 
-// Return all articles
-function getJeux() {
+// Return all Games
+function getGames() {
    $pdo = new PDO("mysql:host=localhost;dbname=ludusvisualis;","root","");
-    $jeux = $pdo->query('select * from VideoGames order by game_id desc');
-    return $jeux;
+    $games = $pdo->query('select * from VideoGames order by game_id desc');
+    return $games;
 }
