@@ -51,6 +51,7 @@ class GameDAO
         $game = new Game();
         $game->setId($row['game_id']);
         $game->setName($row['game_name']);
+        $game->setDescriptionShort($row['game_description_short']);
         $game->setDescriptionLong($row['game_description_long']);
         $game->setAuthor($row['game_author']);
         $game->setYear($row['game_year']);

@@ -19,6 +19,13 @@ class Game
     private $name;
     
     /**
+     * Game descriptionShort.
+     *
+     * @var string
+     */
+    private $descriptionShort;
+    
+    /**
      * Game descriptionLong.
      *
      * @var string
@@ -83,13 +90,21 @@ class Game
     public function setName($name) {
         $this->name = $name;
     }
-
-    public function getDescriptionLong() {
-        return $this->DescriptionLong;
+    
+    public function getDescriptionShort() {
+        return $this->descriptionShort;
     }
 
-    public function setDescriptionLong($DescriptionLong) {
-        $this->DescriptionLong = $DescriptionLong;
+    public function setDescriptionShort($descriptionShort) {
+        $this->descriptionShort = $descriptionShort;
+    }
+
+    public function getDescriptionLong() {
+        return $this->descriptionLong;
+    }
+
+    public function setDescriptionLong($descriptionLong) {
+        $this->descriptionLong = $descriptionLong;
     }
     
     public function getAuthor() {
