@@ -1,4 +1,6 @@
-{% extends "layout.html.twig" %} {% block title %}{{ game.name }}{% endblock %} {% block content %}
+{% extends "layout.html.twig" %} 
+{% block name %}{{ game.name }}{% endblock %} 
+{% block content %}
 <p>
     <h2>{{ game.name }}</h2>
     <p>{{ game.descriptionLong }}</p>

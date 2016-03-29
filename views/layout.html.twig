@@ -5,28 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ app.request.basepath }}/css/microcms.css" rel="stylesheet">
+    <link href="{{ app.request.basepath }}/css/LudusVisualis.css" rel="stylesheet">
     <title>MicroCMS - {% block title %}{% endblock %}</title>
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-            <div class="container">
+         <div class="container">
+                <div class="navbar navbar-default" role="navigation">
+                <!-- Partie de la barre toujours affichée -->
                 <div class="navbar-header">
+                    <!-- Bouton d'accès affiché à droite si la zone d'affichage est trop petite -->
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                        <span class="sr-only">Activer la navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ path('home') }}">MicroCMS</a>
+                    <a class="navbar-brand" href="index.php">LudusVisualis</a>
                 </div>
+                <!-- Partie de la barre masquée si la surface d'affichage est insuffisante -->
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Ajouter un jeu</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                         <li><a href="#">Administration</a></li>
+                <li>
+                    <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Connexion
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Profil</a></li>
+                              <li><a href="authentification.php">Connexion/Déconnexion</a></li>
+                            </ul>
+                    </div>
+                </li>
+                    </ul>
                 </div>
-            </div><!-- /.container -->
-        </nav>
+            </div>
+        </div>
         <div id="content">{% block content %}{% endblock %}</div>
-        <footer class="footer">
-            <a href="https://github.com/bpesquet/OC-MicroCMS">MicroCMS</a> is a minimalistic CMS built as a showcase for modern PHP development.
+        <footer>
+                <p2> Ce site a été réalisé par Tournier Quentin et Geoffroy Hebrard</p2>
+                <script src="../lib/jquery/jquery.min.js"></script>
+                <script src="../lib/bootstrap/js/bootstrap.min.js"></script> 
         </footer>
     </div>
 </body>

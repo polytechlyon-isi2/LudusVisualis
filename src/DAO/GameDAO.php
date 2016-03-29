@@ -25,6 +25,25 @@ class GameDAO extends DAO
         }
         return $games;
     }
+    
+      /**
+     * Return a list of all games, sorted by date (most recent first).
+     *
+     * @return array A list of all games.
+     */
+    public function find($id) {
+        $sql = "select * from VideoGames where game_id=?";
+        $result = $this->getDb()->fetchAll($sql);
+        
+        // Convert query result to an array of domain objects
+        $games = array();
+        foreach ($result as $row) {
+            $GameId = $row['game_id'];
+            $games[$GameId] = $this->buildDomainObject($row);
+        }
+        return $games;
+    }
+    
 
     /**
      * Creates a Game object based on a DB row.

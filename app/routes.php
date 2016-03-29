@@ -10,6 +10,6 @@ $app->get('/game/{id}', function ($id) use ($app) {
 
     $game = $app['dao.game']->find($id);
 
-    return $app['twig']->render('game.html.twig', array('game' => $article));
+    return $app['twig']->render('game.html.twig', array('game' => $game));
 
 })->bind('game');
