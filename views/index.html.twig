@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html>
 
@@ -63,3 +64,17 @@
 </body>
 
 </html>
+=======
+{% extends "layout.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% for game in games %}
+<game>
+    <h2><a class="gameName" href="{{ path('game', { 'id': game.id }) }}">{{ game.name }}</a></h2>
+    <p>{{ game.DescriptionShort }}</p>
+</game>
+{% endfor %}
+{% endblock %}
+>>>>>>> 952554fb09532a84cc5fcfa1b6678e76ee8854cc

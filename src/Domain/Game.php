@@ -115,7 +115,7 @@ class Game
         $this->author = $author;
     }
         
-    public function getyear() {
+    public function getYear() {
         return $this->year;
     }
 

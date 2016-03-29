@@ -5,23 +5,8 @@ namespace LudusVisualis\DAO;
 use Doctrine\DBAL\Connection;
 use LudusVisualis\Domain\Game;
 
-class GameDAO
+class GameDAO extends DAO
 {
-    /**
-     * Database connection
-     *
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $pdo;
-
-    /**
-     * Constructor
-     *
-     * @param \Doctrine\DBAL\Connection The database connection object
-     */
-    public function __construct(Connection $pdo) {
-        $this->pdo = $pdo;
-    }
 
     /**
      * Return a list of all games, sorted by date (most recent first).
@@ -30,16 +15,29 @@ class GameDAO
      */
     public function findAll() {
         $sql = "select * from VideoGames order by game_id desc";
-        $result = $this->pdo->fetchAll($sql);
+        $result = $this->getDb()->fetchAll($sql);
         
         // Convert query result to an array of domain objects
         $games = array();
         foreach ($result as $row) {
             $GameId = $row['game_id'];
-            $games[$GameId] = $this->buildGame($row);
+            $games[$GameId] = $this->buildDomainObject($row);
         }
         return $games;
     }
+    
+      /**
+     * Return a list of all games, sorted by date (most recent first).
+     *
+     * @return array A list of all games.
+     */
+    public function find($id) {
+        $sql = $this->getDb()->prepare("select * from VideoGames where game_id=?");
+        $sql->execute(array($id));
+        $game = $this->getDb()->fetchAll($sql);
+        return $game;
+    }
+    
 
     /**
      * Creates a Game object based on a DB row.
@@ -47,7 +45,7 @@ class GameDAO
      * @param array $row The DB row containing Game data.
      * @return \LudusVisualis\Domain\Game
      */
-    private function buildGame(array $row) {
+    protected function buildDomainObject(array $row) {
         $game = new Game();
         $game->setId($row['game_id']);
         $game->setName($row['game_name']);
