@@ -26,16 +26,20 @@ class GameDAO extends DAO
         return $games;
     }
     
-      /**
-     * Return a list of all games, sorted by date (most recent first).
+ /**
+     * Returns an article matching the supplied id.
      *
-     * @return array A list of all games.
+     * @param integer $id The article id.
+     *
+     * @return \MicroCMS\Domain\Article|throws an exception if no matching article is found
      */
     public function find($id) {
-        $sql = $this->getDb()->prepare("select * from VideoGames where game_id=?");
-        $sql->execute(array($id));
-        $game = $this->getDb()->fetchAll($sql);
-        return $game;
+        $sql = "select * from VideoGames where game_id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No article matching id " . $id);
     }
     
 
