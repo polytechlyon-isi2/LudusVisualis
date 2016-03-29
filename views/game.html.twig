@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "layout.html.twig" %} 
 {% block name %}{{ game.name }}{% endblock %} 
 {% block content %}
@@ -11,4 +12,33 @@
     <p>{{ game.number }}</p>
 
 </p>
+=======
+<<<<<<< HEAD
+{% extends "layout.html.twig" %} {% block title %}{{ game.name }}{% endblock %} {% block content %}
+<p>
+    <h2>{{ game.name }}</h2>
+    <p>{{ game.descriptionLong }}</p>
+    <img href={{ game.image }}>
+    <p>{{ game.price }}</p>
+    <p>{{ game.year }}</p>
+    <p>{{ game.type }}</p>
+    <p>{{ game.number }}</p>
+
+</p>
+=======
+{% extends "layout.html.twig" %} 
+{% block name %}{{ game.name }}{% endblock %} 
+{% block content %}
+<p>
+    <h2>{{ game.name }}</h2>
+    <p>{{ game.descriptionLong }}</p>
+    <img href={{ game.image }}>
+    <p>{{ game.price }}</p>
+    <p>{{ game.year }}</p>
+    <p>{{ game.type }}</p>
+    <p>{{ game.number }}</p>
+
+</p>
+>>>>>>> 952554fb09532a84cc5fcfa1b6678e76ee8854cc
+>>>>>>> 91df91d900759bd0ff339a0d7c4ed36894baba7b
 {% endblock %}

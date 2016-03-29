@@ -18,7 +18,7 @@ create table VideoGames (
 create table Users (
     user_id integer not null primary key auto_increment,
     user_email varchar(100) not null,
-    user_password varchar(100) not null,
+    user_password varchar(88) not null,
     user_lastName varchar(100) not null,
     user_firstName varchar(100) not null,
     user_adresse varchar(200) not null,

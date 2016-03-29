@@ -1,8 +1,8 @@
 <?php
 
 namespace LudusVisualis\Domain;
-
-class User
+use Symfony\Component\Security\Core\User\UserInterface;
+class User implements UserInterface
 {
     /**
      * User id.
@@ -149,11 +149,46 @@ class User
         $this->salt = $salt;
     }
     
-    public function getRole() {
+     public function getRole()
+
+    {
+
         return $this->role;
+
     }
 
+
     public function setRole($role) {
+
         $this->role = $role;
+
+    }
+
+
+    /**
+
+     * @inheritDoc
+
+     */
+
+    public function getRoles()
+
+    {
+
+        return array($this->getRole());
+
+    }
+
+
+    /**
+
+     * @inheritDoc
+
+     */
+
+    public function eraseCredentials() {
+
+        // Nothing to do here
+
     }
 }
