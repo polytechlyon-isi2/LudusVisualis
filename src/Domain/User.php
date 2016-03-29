@@ -75,16 +75,6 @@ class User
      */
     private $role;
 
-        user_id integer not null primary key auto_increment,
-    user_email varchar(100) not null,
-    user_password varchar(100) not null,
-    user_lastName varchar(100) not null,
-    user_firstName varchar(100) not null,
-    user_adresse varchar(200) not null,
-    user_zip integer not null,
-    user_city varchar(100) not null,
-    user_salt varchar(23) not null,
-    user_role varchar(50) not null 
         
     public function getId() {
         return $this->id;
@@ -142,13 +132,6 @@ class User
         $this->zip = $zip;
     }
         
-    public function getType() {
-        return $this->type;
-    }
-
-    public function setType($type) {
-        $this->type = $type;
-    }
         
     public function getCity() {
         return $this->city;
@@ -166,11 +149,11 @@ class User
         $this->salt = $salt;
     }
     
-    public function getType() {
-        return $this->type;
+    public function getRole() {
+        return $this->role;
     }
 
-    public function setType($type) {
-        $this->type = $type;
+    public function setRole($role) {
+        $this->role = $role;
     }
 }

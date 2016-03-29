@@ -32,16 +32,10 @@ class GameDAO extends DAO
      * @return array A list of all games.
      */
     public function find($id) {
-        $sql = "select * from VideoGames where game_id=?";
-        $result = $this->getDb()->fetchAll($sql);
-        
-        // Convert query result to an array of domain objects
-        $games = array();
-        foreach ($result as $row) {
-            $GameId = $row['game_id'];
-            $games[$GameId] = $this->buildDomainObject($row);
-        }
-        return $games;
+        $sql = $this->getDb()->prepare("select * from VideoGames where game_id=?");
+        $sql->execute(array($id));
+        $game = $this->getDb()->fetchAll($sql);
+        return $game;
     }
     
 
