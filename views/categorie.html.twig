@@ -1,0 +1,9 @@
+{% extends "layout.html.twig" %} {% block title %}Categorie{% endblock %} 
+{% block content %}
+{% for game in games %}
+<game>
+    <h2><a class="gameName" href="{{ path('game', { 'id': game.id }) }}">{{ game.name }}</a></h2>
+    <p>{{ game.DescriptionShort }}</p>
+</game>
+{% endfor %}
+{% endblock %}

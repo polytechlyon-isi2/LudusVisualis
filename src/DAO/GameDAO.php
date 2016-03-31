@@ -26,12 +26,35 @@ class GameDAO extends DAO
         return $games;
     }
     
+    /** return all the categories
+    *
+    **/
+       public function findAllCategories() {
+        $sql = "select game_type from VideoGames ";
+        $result = $this->getDb()->fetchAll($sql);
+
+           return $result;
+            
+       }
+/**
+returns all the games from a categorie
+**/
+    public function findAllFromCategorie($categorie) {
+        $sql = "select * from VideoGames where game_type=?";
+        $result= $this->getDb()->fetchAll($sql, array($categorie));
+        $games = array();
+        foreach ($result as $row) {
+            $GameId = $row['game_id'];
+            $games[$GameId] = $this->buildDomainObject($row);
+        }
+        return $games;
+        }
+    
  /**
      * Returns an article matching the supplied id.
      *
      * @param integer $id The article id.
-     *
-     * @return \MicroCMS\Domain\Article|throws an exception if no matching article is found
+
      */
     public function find($id) {
         $sql = "select * from VideoGames where game_id=?";
