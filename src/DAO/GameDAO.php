@@ -16,7 +16,6 @@ class GameDAO extends DAO
     public function findAll() {
         $sql = "select * from VideoGames order by game_id desc";
         $result = $this->getDb()->fetchAll($sql);
-        
         // Convert query result to an array of domain objects
         $games = array();
         foreach ($result as $row) {

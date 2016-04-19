@@ -30,11 +30,46 @@ class UserDAO extends DAO implements UserProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function loadUserByUsername($username)
+    public function refreshUser(UserInterface $user)
     {
-        $sql = "select * from t_user where usr_name=?";
-        $row = $this->getDb()->fetchAssoc($sql, array($username));
+        $class = get_class($user);
+        if (!$this->supportsClass($class)) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
+        }
+        return $this->loadUserByUsername($user->getUsername());
+    }
+    
+    /**
+     * Saves a user into the database.
+     *
+     * @param \MicroCMS\Domain\User $user The user to save
+     */
+    public function save(User $user) {
+        $sql = "select Max(user_id) from Users";
+        $result = $this->getDb()->fetchColumn($sql);
+        echo($result[0]);
+        $id=$result[0]+1;
+        echo($id);
+        $userData = array(   
+            'user_id'=>$id,
+            'user_email' => $user->getEmail(),
+            'user_password' => $user->getPassword(),
+            'user_lastName' => $user->getUserLastname(),
+            'user_firstName' => $user->getUsername(),  
+            'user_adresse' => $user->getAdress(),
+            'user_zip' => $user->getZip(),
+            'user_city' => $user->getCity(),       
+            'user_salt' => $user->getSalt(),
+            'user_role' => $user->getRole()
+            );
+        $this->getDb()->insert('users', $userData);
+    }
+    
+    public function loadUserByUsername($username)
 
+    {
+        $sql = "select * from users where user_lastName=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($username));
         if ($row)
             return $this->buildDomainObject($row);
         else
@@ -44,21 +79,18 @@ class UserDAO extends DAO implements UserProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function refreshUser(UserInterface $user)
-    {
-        $class = get_class($user);
-        if (!$this->supportsClass($class)) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
-        }
-        return $this->loadUserByUsername($user->getUsername());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function supportsClass($class)
     {
         return ' LudusVisualis\Domain\User' === $class;
+    }
+    
+    public function getUsername(){
+        $sql = "select * from users where user_lastName=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($username));
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
     }
 
     /**

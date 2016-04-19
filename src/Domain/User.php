@@ -75,6 +75,13 @@ class User implements UserInterface
      */
     private $role;
 
+    public function getUserName() {
+        return $this->firstName;
+    }
+    
+     public function setUserName($firstName) {
+        $this->firstName = $firstName;
+    }
         
     public function getId() {
         return $this->id;
@@ -100,28 +107,28 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function getLastName() {
+    public function getUserLastName() {
         return $this->lastName;
     }
 
-    public function setLastName($lastName) {
+    public function setUserLastName($lastName) {
         $this->lastName = $lastName;
     }
     
-    public function getFirstName() {
+    public function getUserFirstName() {
         return $this->firstName;
     }
 
-    public function setFirstName($firstName) {
+    public function setUserFirstName($firstName) {
         $this->firstName = $firstName;
     }
         
-    public function getAdresse() {
-        return $this->adresse;
+    public function getAdress() {
+        return $this->adress;
     }
 
-    public function setAdresse($adresse) {
-        $this->adresse = $adresse;
+    public function setAdress($adress) {
+        $this->adress = $adress;
     }
         
     public function getZip() {
@@ -152,42 +159,31 @@ class User implements UserInterface
      public function getRole()
 
     {
-
         return $this->role;
-
     }
 
 
     public function setRole($role) {
-
         $this->role = $role;
-
     }
 
 
     /**
-
      * @inheritDoc
-
      */
 
     public function getRoles()
 
     {
-
         return array($this->getRole());
-
     }
 
 
     /**
-
      * @inheritDoc
-
      */
 
     public function eraseCredentials() {
-
         // Nothing to do here
 
     }
