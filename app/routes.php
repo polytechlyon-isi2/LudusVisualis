@@ -56,3 +56,17 @@ $app->get('/signup', function(Request $request) use ($app) {
         'title' => 'New user',
         'userForm' => $userForm->createView()));
 })->bind('signup')->method('POST|GET');
+
+// Login form
+$app->get('/user', function(Request $request) use ($app) {
+    return $app['twig']->render('updat_user.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
+})->bind('user_update');
+
+//Display the basket of the current user
+$app->get('/basket}', function ($user) use ($app) {
+    $games = $app['dao.basket']->findAllByUser($id);
+    return $app['twig']->render('basket.html.twig', array('games' => $games));
+})->bind('basket');

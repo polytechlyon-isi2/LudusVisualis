@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %} {% block title %}Panier{% endblock %} {% block content %}
+<div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Votre panier<br></h2>
+                {% for game in games %}
+                        <game>
+                        <h2><a class="game" href="{{ path('game', { 'id': room.id }) }}">{{ game.name }}</a></h2>
+                        <p>{{ basket.quantity }}</p>
+                        </game>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

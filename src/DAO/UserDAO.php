@@ -18,7 +18,7 @@ class UserDAO extends DAO implements UserProviderInterface
      * @return \ LudusVisualis\Domain\User|throws an exception if no matching user is found
      */
     public function find($id) {
-        $sql = "select * from t_user where usr_id=?";
+        $sql = "select * from t_user where user_id=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
 
         if ($row)
@@ -36,13 +36,13 @@ class UserDAO extends DAO implements UserProviderInterface
         if (!$this->supportsClass($class)) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
         }
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByUsername($user->getUserName());
     }
     
     /**
      * Saves a user into the database.
      *
-     * @param \MicroCMS\Domain\User $user The user to save
+     * @param \LudusVisualis\Domain\User $user The user to save
      */
     public function save(User $user) {
         $sql = "select Max(user_id) from Users";
@@ -65,15 +65,15 @@ class UserDAO extends DAO implements UserProviderInterface
         $this->getDb()->insert('users', $userData);
     }
     
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($firstName)
 
     {
-        $sql = "select * from users where user_lastName=?";
-        $row = $this->getDb()->fetchAssoc($sql, array($username));
+        $sql = "select * from users where user_firstName=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($firstName));
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
+            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $email));
     }
 
     /**
@@ -84,8 +84,8 @@ class UserDAO extends DAO implements UserProviderInterface
         return ' LudusVisualis\Domain\User' === $class;
     }
     
-    public function getUsername(){
-        $sql = "select * from users where user_lastName=?";
+    public function getUsername($username){
+        $sql = "select * from users where user_firstName=?";
         $row = $this->getDb()->fetchAssoc($sql, array($username));
         if ($row)
             return $this->buildDomainObject($row);
@@ -104,9 +104,9 @@ class UserDAO extends DAO implements UserProviderInterface
         $user->setId($row['user_id']);
         $user->setEmail($row['user_email']);
         $user->setPassword($row['user_password']);
-        $user->setLastName($row['user_lastName']);
-        $user->setFirstName($row['user_firstName']);
-        $user->setAdresse($row['user_adresse']);
+        $user->setUserLastName($row['user_lastName']);
+        $user->setUserName($row['user_firstName']);
+        $user->setAdress($row['user_adresse']);
         $user->setZip($row['user_zip']);
         $user->setCity($row['user_city']);
         $user->setSalt($row['user_salt']);

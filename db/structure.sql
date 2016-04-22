@@ -32,3 +32,12 @@ create table Users (
 create table Categories(
     categorie_name varchar(100) not null primary key
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
+
+create table Basket (
+    basket_id integer not null primary key auto_increment,
+    user_id integer not null,
+    game_id integer not null,
+    bas_quantity integer not null
+    constraint fk_bas_usr foreign key(user_id) references Users(user_id),
+    constraint fk_bas_game foreign key(game_id) references VideoGames(game_id)
+) engine=innodb character set utf8 collate utf8_unicode_ci;

@@ -37,7 +37,7 @@ class User implements UserInterface
      *
      * @var string
      */
-    private $firstName;
+    private $userName;
     
     /**
      * User adresse.
@@ -76,11 +76,11 @@ class User implements UserInterface
     private $role;
 
     public function getUserName() {
-        return $this->firstName;
+        return $this->userName;
     }
     
-     public function setUserName($firstName) {
-        $this->firstName = $firstName;
+     public function setUserName($userName) {
+        $this->userName = $userName;
     }
         
     public function getId() {
