@@ -1,12 +1,24 @@
 {% extends "layout.html.twig" %} {% block title %}{{ game.name }}{% endblock %} {% block content %}
-<p>
+<div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6">
+                <img src={{ game.image }}>
+            </div> 
+            <div class="col-md-6">
+            
+
     <h2>{{ game.name }}</h2>
-    <p>{{ game.descriptionLong }}</p>
-    <img src={{ game.image }}>
-    <p>{{ game.price }}</p>
-    <p>{{ game.year }}</p>
-    <p>{{ game.type }}</p>
-    <p>{{ game.number }}</p>
+    <p>Description : {{ game.descriptionLong }}</p>
+    <p> Prix :{{ game.price }}€</p>
+    <p>Date de sortie : {{ game.year }}</p>
+    <p>Catégorie{{ game.type }}</p>
+    <p>Il reste {{ game.number }} exemplaire disponible.</p>
+                
+    </div>
+            <div class="col-md-12">
+            
+            
+            
 
     {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                     <a href="{{ path('add_product_basket', {'id': game.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> Ajouter au panier</a>
@@ -16,4 +28,8 @@
     
 
 </p>
+            </div>
+    </div>
+</div>
+            
 {% endblock %}
