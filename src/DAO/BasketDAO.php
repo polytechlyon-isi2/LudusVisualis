@@ -14,16 +14,15 @@ class BasketDAO extends DAO
      */
     public function findAllByUser($id) {
         $sql = "SELECT * FROM Basket Natural join Videogames WHERE user_id=?";
-        $result = $this->getDb()->fetchAll($sql, array($id));
-        $baskets = array();
-        $indice = 1;
-        foreach ($result as $row) {
-            $indice = $indice+1;
-            $baskets[$indice] = $this->buildDomainObject($row);
-        }
-        return $baskets;
+        return $this->getDb()->fetchAll($sql, array($id));
+        
     }
     
+    
+    
+    public function deleteOrder($id) {
+         $this->getDb()->delete('basket', array('basket_id' => $id));
+    }
     
     /**
      * Creates an Basket object based on a DB row.

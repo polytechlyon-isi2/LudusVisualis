@@ -18,7 +18,7 @@ class UserDAO extends DAO implements UserProviderInterface
      * @return \ LudusVisualis\Domain\User|throws an exception if no matching user is found
      */
     public function find($id) {
-        $sql = "select * from t_user where user_id=?";
+        $sql = "select * from users where user_id=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
 
         if ($row)

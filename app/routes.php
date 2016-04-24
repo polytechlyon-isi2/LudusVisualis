@@ -3,6 +3,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use LudusVisualis\Domain\User;
+use LudusVisualis\Domain\Basket;
 use LudusVisualis\Form\Type\UserType;
 
 // Home page
@@ -76,9 +77,30 @@ $app->get('/userUpdate', function(Request $request) use ($app) {
 //Display the basket of the current user
 $app->get('/basket', function () use ($app) {
     $user = $app['user'];
-    $orders = $app['dao.basket']->findAllByUser($user->getUserName());
-    //$sum = $app['dao.basket']->sumQuantity($baskets);
+    $orders = $app['dao.basket']->findAllByUser($user->getId());
     return $app['twig']->render('basket.html.twig', array(
         'orders' => $orders,
         /*'sum' => $sum*/));
 })->bind('basket');
+
+// add Game to basket
+$app->match('/basket/{id}/add', function($id,Request $request) use ($app) {
+    $productBasket = new Basket();
+    $productBasket->setUserId($app['user']->getId());
+    $productBasket->setGameId($id);
+    $productBasket->setQuantity("1");
+    $app['dao.basket']->save($productBasket);
+    $app['session']->getFlashBag()->add('success', 'Le produit a bien été ajouté au panier.');
+    // Redirect to product page
+    $game = $app['dao.game']->find($id);
+    return $app['twig']->render('game.html.twig', array('game' => $game));
+})->bind('add_product_basket');
+
+//Delete an order
+$app->get('/basket/{id}', function ($id) use ($app) {
+    $app['dao.basket']->deleteOrder($id); 
+    $user = $app['user'];
+    $orders = $app['dao.basket']->findAllByUser($user->getId());
+    return $app['twig']->render('basket.html.twig', array(
+        'orders' => $orders));
+})->bind('deleteOrder');

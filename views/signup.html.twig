@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}User Signup{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block content %}
 <h2 class="text-center">{{ block('title') }}</h2>
@@ -14,8 +14,7 @@
     {{ form_errors(userForm.password.first) }}
 </div>
 {% endif %}
-<h1>Inscription</h1>
-<div class="body">
+<div class="well">
 {{ form_start(userForm, { 'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
         <div class="col-sm-5 control-label">

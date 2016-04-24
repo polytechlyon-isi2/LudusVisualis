@@ -26,21 +26,23 @@
                 <!-- Partie de la barre masquée si la surface d'affichage est insuffisante -->
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav">
-                        <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
-                                <span class="caret"></span></button>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Categories<b class="caret"></b>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{path('categorie',{ 'categorie': 'sport'})}}">Sport</a></li>
-                                    <li><a href="{{path('categorie',{ 'categorie': 'action'})}}">Action</a></li>            
+                                    <li><a href="{{path('categorie',{ 'categorie': 'action'})}}">Action</a></li> 
                                 </ul>
-                        </div>
+                                
+                            </li>
                     </ul>
+                    
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="active"><a href="{{ path('basket') }}">Consulter le panier</a></li>
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.userName }} <b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span> Bienvenue, {{ app.user.userName }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('user_update') }}">Mettre à jour informations</a></li>
                                     <li><a href="{{ path('logout') }}">Déconnexion</a></li>
@@ -63,7 +65,7 @@
         </div>
         <div id="content">{% block content %}{% endblock %}</div>
         <footer>
-                <p2> Ce site a été réalisé par Tournier Quentin et Geoffroy Hebrard</p2>
+                <p2> Ce site a été réalisé par Tournier Quentin</p2>
                 <script src="../lib/jquery/jquery.min.js"></script>
                 <script src="../lib/bootstrap/js/bootstrap.min.js"></script> 
         </footer>
