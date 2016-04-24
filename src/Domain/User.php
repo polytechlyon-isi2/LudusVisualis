@@ -79,6 +79,10 @@ class User implements UserInterface
         return $this->userName;
     }
     
+    public function getUser(){
+        return this;    
+    }
+    
      public function setUserName($userName) {
         $this->userName = $userName;
     }
@@ -113,14 +117,6 @@ class User implements UserInterface
 
     public function setUserLastName($lastName) {
         $this->lastName = $lastName;
-    }
-    
-    public function getUserFirstName() {
-        return $this->firstName;
-    }
-
-    public function setUserFirstName($firstName) {
-        $this->firstName = $firstName;
     }
         
     public function getAdress() {

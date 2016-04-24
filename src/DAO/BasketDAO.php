@@ -13,7 +13,7 @@ class BasketDAO extends DAO
      * @return \LudusVisualis\Domain\Article
      */
     public function findAllByUser($id) {
-        $sql = "SELECT * FROM Basket B Natural join Videogames A WHERE usr_id=?";
+        $sql = "SELECT * FROM Basket Natural join Videogames WHERE user_id=?";
         $result = $this->getDb()->fetchAll($sql, array($id));
         $baskets = array();
         $indice = 1;
@@ -31,14 +31,12 @@ class BasketDAO extends DAO
      * @param array $row The DB row containing Article data.
      * @return \LudusVisualis\Domain\Article
      */
-    protected function buildDomainObject($row) {
+    protected function buildDomainObject(array $row) {
         $basket = new Basket();
-        $basket->setId($row['bas_id']);
-        $basket->setUsrid($row['usr_id']);
-        $basket->setArtid($row['art_id']);
+        $basket->setId($row['basket_id']);
+        $basket->setUserid($row['user_id']);
+        $basket->setGameId($row['game_id']);
         $basket->setQuantity($row['bas_quantity']);
-        $basket->setTitle($row['art_title']);
-        $basket->setValue($row['art_value']);
         return $basket;
     }
     
@@ -61,6 +59,14 @@ class BasketDAO extends DAO
         $basket->setId($id);
     }
     
+        public function sumQuantity($baskets){
+        $total = 0;
+        foreach($baskets as $basket){
+            $total = $total + $basket->getQuantity()*$basket->getValue();
+        }
+        return $total;
+    }
+    
     /**
      * Removes a game command from the database.
      *
@@ -75,11 +81,13 @@ class BasketDAO extends DAO
      * @param $baskets array of basket
      * return total price
      */
-    public function sommeQuantity($baskets){
+    /*
+    public function sumQuantity($baskets){
         $total = 0;
         foreach($baskets as $basket){
             $total = $total + $basket->getQuantity()*$basket->getValue();
         }
         return $total;
     }
+    */
 }

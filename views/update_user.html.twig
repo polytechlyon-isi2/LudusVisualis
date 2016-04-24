@@ -17,34 +17,34 @@
             <table class="table table-striped">
                 <tbody>
                     <tr>
-                        <th> Surname : </th> 
+                        <th> Nom : </th> 
                         <th>{{ app.user.userlastname }}</th>
                     </tr>
                     <tr>
-                        <th> First Name : </th>
-                        <th>{{ app.users.username }}</th>
+                        <th> Prénom : </th>
+                        <th>{{ app.user.username }}</th>
                     </tr>
                     <tr>
-                        <th> Address : </th>
-                        <th>{{ app.user.address }}</th>
+                        <th> Adresse : </th>
+                        <th>{{ app.user.adress }}</th>
                     </tr>
                     <tr>    
-                        <th> City :</th>
+                        <th> Ville :</th>
                         <th>{{ app.user.city }}</th>
                     </tr>
                     <tr>    
-                        <th> Zip :</th>
+                        <th> Code postal :</th>
                         <th>{{ app.user.zip }}</th>
                     </tr>
                     <tr>    
-                        <th> Mail : </th>
+                        <th> Email : </th>
                          <th>{{ app.user.email }}
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-sm-offset-5 col-sm-3">
-            <a href="{{ path('profil_edit') }}" class="btn btn-primary btn-default">Edit</a>
+            <a href="{{ path('profile_update') }}" class="btn btn-primary btn-default">Edit</a>
         </div>
     </div>
 </article>

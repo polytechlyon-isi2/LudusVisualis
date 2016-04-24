@@ -10,18 +10,19 @@ class Basket
      */
     private $id;
     
+    private $userId;
+    
+    private $gameId;
+    
+    private $quantity;
+    
     public function getId() {
         return $this->id;
     }
     public function setId($id) {
         $this->id = $id;
     }
-    /**
-     * User id.
-     *
-     * @var integer
-     */
-    private $userId;
+
     public function getUserId() {
         return $this->userId;
     }
@@ -29,24 +30,13 @@ class Basket
         $this->userId = $userId;
     }
     
-    /**
-     * Article id.
-     *
-     * @var integer
-     */
-    private $gameId;
     public function getGameId() {
         return $this->gameId;
     }
     public function setGameId($gameId) {
         $this->gameId = $gameId;
     }
-    /**
-     * Quantity
-     *
-     * @var integer
-     */
-    private $quantity;
+
     public function getQuantity() {
         return $this->quantity;
     }

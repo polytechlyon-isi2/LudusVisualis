@@ -57,16 +57,28 @@ $app->get('/signup', function(Request $request) use ($app) {
         'userForm' => $userForm->createView()));
 })->bind('signup')->method('POST|GET');
 
-// Login form
+// Show informations about user
 $app->get('/user', function(Request $request) use ($app) {
-    return $app['twig']->render('updat_user.html.twig', array(
+    return $app['twig']->render('update_user.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
 })->bind('user_update');
 
+// Update user informations
+$app->get('/userUpdate', function(Request $request) use ($app) {
+    return $app['twig']->render('edit_profile.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
+})->bind('profile_update');
+
 //Display the basket of the current user
-$app->get('/basket}', function ($user) use ($app) {
-    $games = $app['dao.basket']->findAllByUser($id);
-    return $app['twig']->render('basket.html.twig', array('games' => $games));
+$app->get('/basket', function () use ($app) {
+    $user = $app['user'];
+    $orders = $app['dao.basket']->findAllByUser($user->getUserName());
+    //$sum = $app['dao.basket']->sumQuantity($baskets);
+    return $app['twig']->render('basket.html.twig', array(
+        'orders' => $orders,
+        /*'sum' => $sum*/));
 })->bind('basket');

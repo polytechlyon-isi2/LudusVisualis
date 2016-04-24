@@ -1,0 +1,78 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Mise à jour du profil{% endblock %}
+
+{% block content %}
+
+
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    {{ flashMessage }}
+    <META HTTP-EQUIV="Refresh" CONTENT="1;URL= {{ path('home') }}">
+</div>
+{% endfor %}
+
+{{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(user.userName, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(user.userName) }}
+            {{ form_widget(user.userName, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(user.lastName, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(user.lastName) }}
+            {{ form_widget(user.lastName, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(user.adress, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(user.adress) }}
+            {{ form_widget(user.adress, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(userForm.zip, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(user.zip) }}
+            {{ form_widget(user.zip, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(user.city, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(user.city) }}
+            {{ form_widget(user.city, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-3">
+            <input type="submit" class="btn btn-primary" value="Enregistrer" />
+        </div>
+{{ form_end(userForm) }}
+</div>
+{% endblock %}
