@@ -21,7 +21,7 @@ class BasketDAO extends DAO
     
     
     public function deleteOrder($id) {
-         $this->getDb()->delete('basket', array('basket_id' => $id));
+         $this->getDb()->delete('Basket', array('basket_id' => $id));
     }
     
     /**
