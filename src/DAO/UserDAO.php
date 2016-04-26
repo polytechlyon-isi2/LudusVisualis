@@ -34,7 +34,6 @@ class UserDAO extends DAO implements UserProviderInterface
     {
         $class = get_class($user);
         if (!$this->supportsClass($class)) {
-            print(22);
             printf('Instances of "%s" are not supported.', $class);
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
         }
@@ -64,7 +63,7 @@ class UserDAO extends DAO implements UserProviderInterface
             'user_salt' => $user->getSalt(),
             'user_role' => $user->getRole()
             );
-        $this->getDb()->insert('users', $userData);
+        $this->getDb()->insert('Users', $userData);
     }
     
     public function loadUserByUsername($firstName)
