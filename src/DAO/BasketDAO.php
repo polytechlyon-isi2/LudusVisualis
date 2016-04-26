@@ -13,7 +13,7 @@ class BasketDAO extends DAO
      * @return \LudusVisualis\Domain\Article
      */
     public function findAllByUser($id) {
-        $sql = "SELECT * FROM Basket Natural join Videogames WHERE user_id=?";
+        $sql = "SELECT * FROM Basket Natural join VideoGames WHERE user_id=?";
         return $this->getDb()->fetchAll($sql, array($id));
         
     }
