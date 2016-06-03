@@ -48,9 +48,7 @@ class UserDAO extends DAO implements UserProviderInterface
     public function save(User $user) {
         $sql = "select Max(user_id) from Users";
         $result = $this->getDb()->fetchColumn($sql);
-        echo($result[0]);
         $id=$result[0]+1;
-        echo($id);
         $userData = array(   
             'user_id'=>$id,
             'user_email' => $user->getEmail(),

@@ -39,6 +39,12 @@ class BasketDAO extends DAO
         return $basket;
     }
     
+    public function existBasket($id,$user_id){
+        $sql = "SELECT * FROM Basket WHERE game_id=? and user_id=?";
+        $result= $this->getDb()->fetchAll($sql, array($id,$user_id));
+        return !empty($result);
+    }
+    
     
     /**
      * Saves a comment into the database.
@@ -46,16 +52,22 @@ class BasketDAO extends DAO
      * @param \sellDreams\Domain\Basket $basket The comment to save
      */
     public function save(Basket $basket) {
+        //On regarde si le jeu est déjà dans le panier
+        $sql = "SELECT * FROM Basket WHERE game_id=? and user_id=?";
+        $result= $this->getDb()->fetchAll($sql, array($basket->getGameId(),$basket->getUserId()));
+        $isEmpty=empty($result);
         $basketData = array(
             'user_id' => $basket->getUserId(),
             'game_id' => $basket->getGameId(),
             'bas_quantity' => $basket->getQuantity()
             );
-        // The article has never been saved : insert it
+        
+        // The article has never been saved : insert it   
         $this->getDb()->insert('Basket', $basketData);
         // Get the id of the newly created comment and set it on the entity.
         $id = $this->getDb()->lastInsertId();
         $basket->setId($id);
+        
     }
     
         public function sumQuantity($baskets){
@@ -76,6 +88,28 @@ class BasketDAO extends DAO
         $this->getDb()->delete('Basket', array('bas_id' => $id));
     }
     
+    
+     public function upBasket($id,$userId){
+        $sql = "SELECT * FROM Basket WHERE game_id=? and user_id=?";
+        $result= $this->getDb()->fetchArray($sql, array($id,$userId)); 
+        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
+        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]+1,$result[0]));
+     }
+    
+    public function upOneBasket($id){
+        $sql = "SELECT * FROM Basket WHERE basket_id=?";
+        $result= $this->getDb()->fetchArray($sql, array($id)); 
+        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
+        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]+1,$result[0]));
+     }
+    
+    public function downOneBasket($id){
+        $sql = "SELECT * FROM Basket WHERE basket_id=?";
+        $result= $this->getDb()->fetchArray($sql, array($id)); 
+        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
+        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]-1,$result[0]));
+     }
+         
     /**
      * @param $baskets array of basket
      * return total price

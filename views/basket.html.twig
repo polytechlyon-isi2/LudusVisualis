@@ -19,7 +19,11 @@
                                             <th><p>{{ order.bas_quantity }}</p></th>
                                             <th>{{order.game_price}}</th>
                                             <th> 
-                                                 <a href="{{ path('deleteOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-remove-sign red"></a>
+                                                
+                                                <a href="{{ path('removeOneOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-minus-sign red"></a>
+                                                <a href="{{ path('addOneOrder', { 'id': order.basket_id }) }}" type="button" class="btn-success btn-sm glyphicon glyphicon-plus-sign "></a>
+                                                
+                                                <a href="{{ path('deleteOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-remove-sign red"></a>
                                             </th>   
                                     </tr>
                             
@@ -27,6 +31,11 @@
                 {% endfor %}
                                          </tbody>
                 </table>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                    {% endfor %}
             </div>
         </div>
     </div>

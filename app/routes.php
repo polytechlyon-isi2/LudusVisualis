@@ -85,12 +85,19 @@ $app->get('/basket', function () use ($app) {
 
 // add Game to basket
 $app->match('/basket/{id}/add', function($id,Request $request) use ($app) {
-    $productBasket = new Basket();
-    $productBasket->setUserId($app['user']->getId());
-    $productBasket->setGameId($id);
-    $productBasket->setQuantity("1");
-    $app['dao.basket']->save($productBasket);
-    $app['session']->getFlashBag()->add('success', 'Le produit a bien été ajouté au panier.');
+    if($app['dao.basket']->existBasket($id,$app['user']->getId())){
+        $app['dao.basket']->upBasket($id,$app['user']->getId());
+    }
+    else{
+        $productBasket = new Basket();
+        $productBasket->setUserId($app['user']->getId());
+        $productBasket->setGameId($id);
+        $productBasket->setQuantity("1");
+        $app['dao.basket']->save($productBasket);
+    }
+        $app['session']->getFlashBag()->add('success', 'Le produit a bien été ajouté au panier.');
+    
+       
     // Redirect to product page
     $game = $app['dao.game']->find($id);
     return $app['twig']->render('game.html.twig', array('game' => $game));
@@ -101,6 +108,25 @@ $app->get('/basket/{id}', function ($id) use ($app) {
     $app['dao.basket']->deleteOrder($id); 
     $user = $app['user'];
     $orders = $app['dao.basket']->findAllByUser($user->getId());
+     $app['session']->getFlashBag()->add('success', 'Le produit a bien été supprimé du panier.');
     return $app['twig']->render('basket.html.twig', array(
         'orders' => $orders));
 })->bind('deleteOrder');
+
+//add one game
+$app->get('/basket/{id}/addOne', function ($id) use ($app) {
+    $app['dao.basket']->upOneBasket($id); 
+    $user = $app['user'];
+    $orders = $app['dao.basket']->findAllByUser($user->getId());
+    return $app['twig']->render('basket.html.twig', array(
+        'orders' => $orders));
+})->bind('addOneOrder');
+
+//remove one game
+$app->get('/basket/{id}/remove', function ($id) use ($app) {
+    $app['dao.basket']->downOneBasket($id);
+    $user = $app['user'];
+    $orders = $app['dao.basket']->findAllByUser($user->getId());
+    return $app['twig']->render('basket.html.twig', array(
+        'orders' => $orders));
+})->bind('removeOneOrder');
