@@ -107,7 +107,8 @@ class BasketDAO extends DAO
         $sql = "SELECT * FROM Basket WHERE basket_id=?";
         $result= $this->getDb()->fetchArray($sql, array($id)); 
         $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
-        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]-1,$result[0]));
+        $val=max(1,$result[3]-1);
+        $result2 = $this->getDb()->executeUpdate($sql2, array($val,$result[0]));
      }
          
     /**
