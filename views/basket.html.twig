@@ -17,7 +17,7 @@
                                     <tr>
                                             <th> <a class="game" href="{{ path('game', { 'id': order.game_id }) }}">{{order.game_name}}</a></th> 
                                             <th><p>{{ order.bas_quantity }}</p></th>
-                                            <th>{{order.game_price}}</th>
+                                            <th>{{order.game_price*order.bas_quantity}}</th>
                                             <th> 
                                                 
                                                 <a href="{{ path('removeOneOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-minus-sign red"></a>

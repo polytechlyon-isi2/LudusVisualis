@@ -12,7 +12,7 @@ $app['db.options'] = array(
 );
 
  /*
-    'host'     => 'localhost',
+'host'     => 'localhost',
     'dbname'   => 'ludusvisualis',
     'user'     => 'Ludus_user',
     'password' => 'secret',*/
