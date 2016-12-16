@@ -2,6 +2,8 @@
 namespace LudusVisualis\DAO;
 use LudusVisualis\Domain\Basket;
 use LudusVisualis\Domain\Article;
+use LudusVisualis\Domain\Game;
+use LudusVisualis\Domain\User;
 class BasketDAO extends DAO
 {
     
@@ -18,10 +20,14 @@ class BasketDAO extends DAO
         
     }
     
+    public function deleteOrder(Game $game, User $user) {
+         $stmt = $this->getDb()->prepare('DELETE FROM basket WHERE user_id= :userId AND game_id = :gameId ');
+        $stmt->execute(['userId' => $user->getId(), 'gameId' => $game->getId()]);
+    }
     
-    
-    public function deleteOrder($id) {
-         $this->getDb()->delete('Basket', array('basket_id' => $id));
+    public function addInBasket(Game $game, User $user) {
+         $stmt = $this->getDb()->prepare('INSERT INTO basket (user_id,game_id) VALUES (:userId, :gameId)');
+        $stmt->execute(['userId' => $user->getId(), 'gameId' => $game->getId()]);
     }
     
     /**
@@ -35,13 +41,12 @@ class BasketDAO extends DAO
         $basket->setId($row['basket_id']);
         $basket->setUserid($row['user_id']);
         $basket->setGameId($row['game_id']);
-        $basket->setQuantity($row['bas_quantity']);
         return $basket;
     }
     
-    public function existBasket($id,$user_id){
-        $sql = "SELECT * FROM Basket WHERE game_id=? and user_id=?";
-        $result= $this->getDb()->fetchAll($sql, array($id,$user_id));
+    public function existsInBasket(Game $game, User $user){
+        $sql = "SELECT 1 FROM Basket WHERE game_id= :gameId and user_id= :userId";
+        $result= $this->getDb()->fetchAll($sql, array('gameId' => $game->getId(),'userId' => $user->getId()));
         return !empty($result);
     }
     
@@ -59,7 +64,6 @@ class BasketDAO extends DAO
         $basketData = array(
             'user_id' => $basket->getUserId(),
             'game_id' => $basket->getGameId(),
-            'bas_quantity' => $basket->getQuantity()
             );
         
         // The article has never been saved : insert it   
@@ -68,14 +72,6 @@ class BasketDAO extends DAO
         $id = $this->getDb()->lastInsertId();
         $basket->setId($id);
         
-    }
-    
-        public function sumQuantity($baskets){
-        $total = 0;
-        foreach($baskets as $basket){
-            $total = $total + $basket->getQuantity()*$basket->getValue();
-        }
-        return $total;
     }
     
     /**
@@ -87,29 +83,6 @@ class BasketDAO extends DAO
         // Delete the article
         $this->getDb()->delete('Basket', array('bas_id' => $id));
     }
-    
-    
-     public function upBasket($id,$userId){
-        $sql = "SELECT * FROM Basket WHERE game_id=? and user_id=?";
-        $result= $this->getDb()->fetchArray($sql, array($id,$userId)); 
-        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
-        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]+1,$result[0]));
-     }
-    
-    public function upOneBasket($id){
-        $sql = "SELECT * FROM Basket WHERE basket_id=?";
-        $result= $this->getDb()->fetchArray($sql, array($id)); 
-        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
-        $result2 = $this->getDb()->executeUpdate($sql2, array($result[3]+1,$result[0]));
-     }
-    
-    public function downOneBasket($id){
-        $sql = "SELECT * FROM Basket WHERE basket_id=?";
-        $result= $this->getDb()->fetchArray($sql, array($id)); 
-        $sql2="UPDATE Basket SET bas_quantity = ? WHERE basket_id = ?";
-        $val=max(1,$result[3]-1);
-        $result2 = $this->getDb()->executeUpdate($sql2, array($val,$result[0]));
-     }
          
     /**
      * @param $baskets array of basket

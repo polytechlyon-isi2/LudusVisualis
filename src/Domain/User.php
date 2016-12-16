@@ -44,7 +44,7 @@ class User implements UserInterface
      *
      * @var string
      */
-    private $adress;
+    private $address;
     
         /**
      * User zip.
@@ -119,12 +119,12 @@ class User implements UserInterface
         $this->lastName = $lastName;
     }
         
-    public function getAdress() {
-        return $this->adress;
+    public function getAddress() {
+        return $this->address;
     }
 
-    public function setAdress($adress) {
-        $this->adress = $adress;
+    public function setAddress($address) {
+        $this->address = $address;
     }
         
     public function getZip() {

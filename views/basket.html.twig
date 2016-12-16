@@ -8,34 +8,23 @@
                                     <table class="table table-striped">
                                         <tbody>
                                             <tr>
-                                                <th>Jeux</th> 
-                                                <th>Quantité</th>
-                                                <th>Prix(€)</th>
+                                                <th>{{ 'Game'|trans }}</th> 
+                                                <th>{{ 'Price(€)'|trans }}</th>
+                                                <th>{{ 'Action'|trans }}</th>
                                             </tr>
                 {% for order in orders %}
                         <game>
-                                    <tr>
-                                            <th> <a class="game" href="{{ path('game', { 'id': order.game_id }) }}">{{order.game_name}}</a></th> 
-                                            <th><p>{{ order.bas_quantity }}</p></th>
-                                            <th>{{order.game_price*order.bas_quantity}}</th>
-                                            <th> 
-                                                
-                                                <a href="{{ path('removeOneOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-minus-sign red"></a>
-                                                <a href="{{ path('addOneOrder', { 'id': order.basket_id }) }}" type="button" class="btn-success btn-sm glyphicon glyphicon-plus-sign "></a>
-                                                
-                                                <a href="{{ path('deleteOrder', { 'id': order.basket_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-remove-sign red"></a>
-                                            </th>   
-                                    </tr>
-                            
+                                <tr>
+                                        <th> <a class="game" href="{{ path('game', { 'id': order.game_id }) }}">{{order.game_name}}</a></th> 
+                                        <th>{{order.game_price}}</th>
+                                        <th> 
+                                            <a href="{{ path('deleteOrder', { 'gameId': order.game_id }) }}" type="button" class="btn-danger btn-sm glyphicon glyphicon-remove-sign red"></a>
+                                        </th>   
+                                </tr>
                         </game>
                 {% endfor %}
                                          </tbody>
                 </table>
-                {% for flashMessage in app.session.flashbag.get('success') %}
-                    <div class="alert alert-success">
-                        {{ flashMessage }}
-                    </div>
-                    {% endfor %}
             </div>
         </div>
     </div>

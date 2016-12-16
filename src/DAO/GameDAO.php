@@ -35,6 +35,17 @@ class GameDAO extends DAO
            return $result;
             
        }
+    
+     /** return the number 
+    *
+    **/
+       public function removeOne(Game $game) {
+        $db = $this->getDb();
+        $sql = "UPDATE videogames Set game_number=game_number-1 WHERE game_id = :gameId";
+        $success = $db->prepare($sql)->execute(['gameId'=>$game->getId()]);
+        
+        return $success;
+       }
 /**
 returns all the games from a categorie
 **/

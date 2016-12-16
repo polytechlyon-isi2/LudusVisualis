@@ -36,12 +36,5 @@ class Basket
     public function setGameId($gameId) {
         $this->gameId = $gameId;
     }
-
-    public function getQuantity() {
-        return $this->quantity;
-    }
-    public function setQuantity($quantity) {
-        $this->quantity = $quantity;
-    }
    
 }

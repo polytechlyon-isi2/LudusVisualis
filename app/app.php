@@ -39,13 +39,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 ));
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
-// Register services
-/*$app['dao.basket'] = $app->share(function ($app) {
-    return new SellDreams\DAO\BasketDAO($app['db']);
-});*/
-$app['dao.article'] = $app->share(function ($app) {
-    return new LudusVisualis\DAO\ArticleDAO($app['db']);
-});
+
 $app['dao.user'] = $app->share(function ($app) {
     return new LudusVisualis\DAO\UserDAO($app['db']);
 });
@@ -54,5 +48,8 @@ $app['dao.game'] = $app->share(function ($app) {
 });
 $app['dao.basket'] = $app->share(function ($app) {
     return new LudusVisualis\DAO\BasketDAO($app['db']);
+});
+$app['dao.category'] = $app->share(function ($app) {
+    return new LudusVisualis\DAO\CategoryDAO($app['db']);
 });
 

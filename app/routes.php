@@ -2,6 +2,8 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use LudusVisualis\Domain\User;
 use LudusVisualis\Domain\Basket;
 use LudusVisualis\Form\Type\UserType;
@@ -16,7 +18,9 @@ $app->get('/', function () use ($app) {
 $app->get('/game/{id}', function ($id) use ($app) {
     
     $game = $app['dao.game']->find($id);
-    return $app['twig']->render('game.html.twig', array('game' => $game));
+    $user = $app['dao.user']->find($app['user']->getId());
+    $ordered = $app['dao.basket']->existsInBasket($game, $user);
+    return $app['twig']->render('game.html.twig', array('game' => $game, 'ordered' =>$ordered));
 
 })->bind('game');
 
@@ -59,19 +63,46 @@ $app->get('/signup', function(Request $request) use ($app) {
 })->bind('signup')->method('POST|GET');
 
 // Show informations about user
-$app->get('/user', function(Request $request) use ($app) {
-    return $app['twig']->render('update_user.html.twig', array(
+$app->get('/userSettings', function(Request $request) use ($app) {
+    $params = [
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username')
+        ];
+    return $app['twig']->render('update_user.html.twig', $params);
+    
+})->bind('userSettings');
+
+// Show informations about user
+$app->match('/editUser', function(Request $request) use ($app) {
+    $params = [
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
-    ));
-})->bind('user_update');
+        'edit' => true,
+        ];
+    return $app['twig']->render('update_user.html.twig', $params);
+})->bind('edit_user');
 
 // Update user informations
-$app->get('/userUpdate', function(Request $request) use ($app) {
-    return $app['twig']->render('edit_profile.html.twig', array(
-        'error'         => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
-    ));
+$app->match('/userUpdate', function(Request $request) use ($app) {
+    $email = $request->request->get('email');
+    $app['user']->setEmail($email);
+    $firstName = $request->request->get('firstName');
+    $lastName = $request->request->get('lastName');
+    $zip = $request->request->get('zip');
+    $city = $request->request->get('city');
+    $address = $request->request->get('address');
+    $params = ['user_email'=> $email,
+               'user_firstName' => $firstName,
+               'user_lastName' => $lastName,
+               'user_zip' => $zip,
+               'user_city' =>$city,
+               'user_address' => $address
+              ];
+    $app['dao.user']->updateUser($app['user'], $params);
+
+     $app['session']->getFlashBag()->add('success', 'Your informations were changed successfully');
+    return new RedirectResponse($app["url_generator"]->generate("home"));
+    
 })->bind('profile_update');
 
 //Display the basket of the current user
@@ -79,54 +110,37 @@ $app->get('/basket', function () use ($app) {
     $user = $app['user'];
     $orders = $app['dao.basket']->findAllByUser($user->getId());
     return $app['twig']->render('basket.html.twig', array(
-        'orders' => $orders,
-        /*'sum' => $sum*/));
+        'orders' => $orders));
 })->bind('basket');
 
 // add Game to basket
 $app->match('/basket/{id}/add', function($id,Request $request) use ($app) {
-    if($app['dao.basket']->existBasket($id,$app['user']->getId())){
-        $app['dao.basket']->upBasket($id,$app['user']->getId());
+    if(!$app['dao.basket']->existsInBasket($app['dao.game']->find($id),$app['user'])){
+        $app['dao.basket']->addInBasket($app['dao.game']->find($id),$app['user']);
     }
-    else{
-        $productBasket = new Basket();
-        $productBasket->setUserId($app['user']->getId());
-        $productBasket->setGameId($id);
-        $productBasket->setQuantity("1");
-        $app['dao.basket']->save($productBasket);
-    }
-        $app['session']->getFlashBag()->add('success', 'Le produit a bien été ajouté au panier.');
     
-       
+    $app['session']->getFlashBag()->add('success', 'The game has been succesfully added into the basket');
     // Redirect to product page
     $game = $app['dao.game']->find($id);
-    return $app['twig']->render('game.html.twig', array('game' => $game));
+    $app['dao.game']->removeOne($game);
+    return new RedirectResponse($app["url_generator"]->generate("home"));
 })->bind('add_product_basket');
 
 //Delete an order
-$app->get('/basket/{id}', function ($id) use ($app) {
-    $app['dao.basket']->deleteOrder($id); 
+$app->get('/deleteFrombasket/{gameId}', function ($gameId) use ($app) {
     $user = $app['user'];
-    $orders = $app['dao.basket']->findAllByUser($user->getId());
-     $app['session']->getFlashBag()->add('success', 'Le produit a bien été supprimé du panier.');
-    return $app['twig']->render('basket.html.twig', array(
-        'orders' => $orders));
+    $game = $app['dao.game']->find($gameId);
+    $app['dao.basket']->deleteOrder($game, $user); 
+    $app['session']->getFlashBag()->add('success', 'The game has been successfully deleted from the basket');
+    return new RedirectResponse($app["url_generator"]->generate("basket"));
 })->bind('deleteOrder');
 
-//add one game
-$app->get('/basket/{id}/addOne', function ($id) use ($app) {
-    $app['dao.basket']->upOneBasket($id); 
-    $user = $app['user'];
-    $orders = $app['dao.basket']->findAllByUser($user->getId());
-    return $app['twig']->render('basket.html.twig', array(
-        'orders' => $orders));
-})->bind('addOneOrder');
-
-//remove one game
-$app->get('/basket/{id}/remove', function ($id) use ($app) {
-    $app['dao.basket']->downOneBasket($id);
-    $user = $app['user'];
-    $orders = $app['dao.basket']->findAllByUser($user->getId());
-    return $app['twig']->render('basket.html.twig', array(
-        'orders' => $orders));
-})->bind('removeOneOrder');
+//Get all categories
+$app->get('/getCategories', function () use ($app) {
+    $categoryArray = [];
+    $categories = $app['dao.category']->getAllCategories();
+    foreach($categories as $category){
+        $categoryArray[] = $category->getName();
+    }
+    return new JSONResponse($categoryArray);
+})->bind('getCategories');

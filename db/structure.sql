@@ -22,7 +22,7 @@ create table Users (
     user_password varchar(88) not null,
     user_lastName varchar(100) not null,
     user_firstName varchar(100) not null,
-    user_adresse varchar(200) not null,
+    user_address varchar(200) not null,
     user_zip integer not null,
     user_city varchar(100) not null,
     user_salt varchar(23) not null,
@@ -30,7 +30,7 @@ create table Users (
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table Categories(
-    categorie_name varchar(100) not null primary key
+    category_name varchar(100) not null primary key
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table Basket (
