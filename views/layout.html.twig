@@ -42,7 +42,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> {{ 'Welcome, %userName%'|trans({'%userName%': app.user.userName}) }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ path('userSettings') }}">{{ 'Update informations'|trans }}</a></li>
+                                    <li><a href="{{ path('userSettings') }}">{{ 'Update/Edit informations'|trans }}</a></li>
                                     <li><a href="{{ path('logout') }}">{{ 'Sign out'|trans }}</a></li>
                                 </ul>
                                 
@@ -106,33 +106,3 @@
     </div>
 </body>
 </html>
-<style>
-    #dropdownUl{
-        background-color: lightblue;
-        
-    }
-    
-    #categories{
-        position: absolute;
-        padding-left: 0px;
-        width: 9.5em;
-    }
-    #dropdownJs li a{
-        display: block;
-        clear: both;
-        font-weight: 400;
-        line-height: 1.42857143;
-        color: #333;
-        text-decoration: none;
-    }
-    
-    #dropdownJs li{
-        background-color: lightblue;
-        border-color: grey;
-        border-style: dotted;
-    }
-    
-    #dropdownJs li:hover{
-        background-color: lightgrey;
-    }
-</style>

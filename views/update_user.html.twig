@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label class="col-md-3" for="firstName">{{ 'First Name'|trans }}</label>
                     {% if edit is defined %}
-                        <div class="col-md-9"><input class="form-control" name="firstName" value="{{ app.user.userName }}"></div>
+                        <div class="col-md-9"><input class="form-control" name="firstName" value="{{ app.user.userName }}" data-validation="length alphanumeric" data-validation-length="min1"></div>
                     {% else %}
                         <p class="col-md-9">{{ app.user.userName }}</p>
                     {% endif %}
